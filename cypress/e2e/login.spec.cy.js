@@ -3,7 +3,7 @@ describe('Orange HRM Tests', () => {
   const selectorsList = { 
     usernameField: "[name='username']",
     passwordField: "[name='password']",
-    loginButton: "[type='submit']"
+    loginButton: "[type='submit']",
     sectionTitleTopBar: ".oxd-topbar-header-breadcrumb-module",
     wrongCredentialAlert: "[role='alert']"
   } 
