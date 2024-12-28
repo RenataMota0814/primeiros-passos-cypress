@@ -16,7 +16,7 @@ describe('Orange HRM Tests', () => {
     dateField: "[placeholder='yyyy-dd-mm']",
     dateClosedButton: ".--close",
     submitButton: "[  type='submit']",
-
+    genericCombobox: ".oxd-select-text--arrow",
   } 
 
   it.only('User Info Update - Success', () => {
@@ -37,9 +37,13 @@ describe('Orange HRM Tests', () => {
     cy.get(selectorsList.dateClosedButton).click()
     cy.get(selectorsList.dateField).eq(1).clear().type('1985-04-06')
     cy.get(selectorsList.genericField).eq(8).clear().type('sinNumberTest')
-    cy.get(selectorsList.submitButton).eq(0).click ()
+    cy.get(selectorsList.submitButton).eq(0).click ({force: true })
     cy.get('body').should('contain', 'Successfully Updated')
-    
+
+    cy.get(selectorsList.genericCombobox).eq(0).click({force: true})
+    cy.get('.oxd-select-dropdown > :nth-child(3)').click()
+    cy.get(selectorsList.genericCombobox).eq(1).click({force: true})
+    cy.get('.oxd-select-dropdown > :nth-child(4)').click()
   })
   it('Login - Fail', () => {
     cy.visit('/auth/login')
