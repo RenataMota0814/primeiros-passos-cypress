@@ -1,14 +1,16 @@
 import userData from '../fixtures/user-data.json'
+import LoginPage from '../pages/loginPage.js'
+import DashboardPage from '../pages/dashboardPage.js'
+
+const loginPage = new LoginPage()
+
+const dashboardPage = new DashboardPage()
 
 describe('Orange HRM Tests', () => {
 
-  const selectorsList = { 
-    usernameField: "[name='username']",
-    passwordField: "[name='password']",
-    loginButton: "[type='submit']",
+  const selectorsList = {     
     sectionTitleTopBar: ".oxd-topbar-header-breadcrumb-module",
-    dashboardGrid: ".orangehrm-dashboard-grid",
-    wrongCredentialAlert: "[role='alert']", 
+    
     myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
     firstNameField: "[name='firstName']",
     lastNameField: "[name='lastName']",
@@ -20,12 +22,11 @@ describe('Orange HRM Tests', () => {
   } 
 
   it.only('User Info Update - Success', () => {
-    cy.visit('/auth/login')
-    cy.get(selectorsList.usernameField).type(userData.userSuccess.username)
-    cy.get(selectorsList.passwordField).type (userData.userSuccess.password)
-    cy.get(selectorsList.loginButton).click()
-    cy.location('pathname').should('equal', '/web/index.php/dashboard/index')
-    cy.get(selectorsList.dashboardGrid)
+    loginPage.accessLoginPage()
+    loginPage.loginwithUser(userData.userSuccess.username, userData.userSuccess.password)
+  
+    dashboardPage.checkDashboardPage()
+    
     cy.get (selectorsList.myInfoButton).click ()
     cy.get(selectorsList.firstNameField).clear().type('FirstNameTest')
     cy.get(selectorsList.lastNameField).clear().type('LastNameTest')
@@ -39,7 +40,6 @@ describe('Orange HRM Tests', () => {
     cy.get(selectorsList.genericField).eq(8).clear().type('sinNumberTest')
     cy.get(selectorsList.submitButton).eq(0).click ({force: true })
     cy.get('body').should('contain', 'Successfully Updated')
-
     cy.get(selectorsList.genericCombobox).eq(0).click({force: true})
     cy.get('.oxd-select-dropdown > :nth-child(3)').click()
     cy.get(selectorsList.genericCombobox).eq(1).click({force: true})
