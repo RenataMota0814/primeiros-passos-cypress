@@ -1,6 +1,8 @@
 import userData from '../fixtures/user-data.json'
 import LoginPage from '../pages/loginPage.js'
 import DashboardPage from '../pages/dashboardPage.js'
+import menuPage from '../pages/menuPage.js'
+
 
 const loginPage = new LoginPage()
 
@@ -11,7 +13,7 @@ describe('Orange HRM Tests', () => {
   const selectorsList = {     
     sectionTitleTopBar: ".oxd-topbar-header-breadcrumb-module",
     
-    myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
+    
     firstNameField: "[name='firstName']",
     lastNameField: "[name='lastName']",
     genericField: ".oxd-input--active",
@@ -25,7 +27,7 @@ describe('Orange HRM Tests', () => {
     loginPage.accessLoginPage()
     loginPage.loginwithUser(userData.userSuccess.username, userData.userSuccess.password)
   
-    dashboardPage.checkDashboardPage()
+    dashboardPage.checkdashboardPage()
     
     cy.get (selectorsList.myInfoButton).click ()
     cy.get(selectorsList.firstNameField).clear().type('FirstNameTest')
