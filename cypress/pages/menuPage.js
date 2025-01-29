@@ -1,16 +1,13 @@
 class menuPage {
-
     selectorList () {
         const selectors ={
-            myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]',
+            myInfoButton: '[href="/web/index.php/pim/viewMyDetails"]'
         }  
-        
         return selectors
     }
-
-    accessMyInfo () {
+    accessMyInfo() {
         cy.get(this.selectorList().myInfoButton).click()
-         }
     }
-
+}
 export default menuPage
+    
